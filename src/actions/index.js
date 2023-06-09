@@ -72,6 +72,14 @@ export const filterHero = (heroes, filter) => {
     }
 }
 
+export const onPressBtn = (i) => {
+    return {
+        type: 'BTN_PRESSED',
+        payload: i
+    }
+}
+
+
 
 
 

@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import { filterHero, heroesFetched } from "../../actions";
-import { useEffect } from "react"
-import { useHttp } from "../../hooks/http.hook";
+import { filterHero, onPressBtn } from "../../actions";
+import classnames from "classnames";
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
 // Фильтры должны отображать только нужных героев при выборе
@@ -12,17 +11,23 @@ import { useHttp } from "../../hooks/http.hook";
 const HeroesFilters = () => {
 
     const dispatch = useDispatch();
-    const { filters, heroes, filteredHeroes } = useSelector(state => state)
-    
-    
+    const { filters, heroes, isActive } = useSelector(state => state)
 
-    console.log(filteredHeroes)
-    
-   const btnStyle = (filter) => {
+
+   
+
+
+    const onFilterHero = (heroes, filter, i) => {
+        dispatch(filterHero(heroes, filter))
+        dispatch(onPressBtn(i))
+    }
+
+
+    const btnStyle = (filter) => {
         let style;
         switch(filter) {
                 case 'Все':
-                    style = "btn-outline-dark active";
+                    style = "btn-outline-dark";
                     break;
                 case 'Вода':
                     style = "btn-primary";
@@ -41,13 +46,26 @@ const HeroesFilters = () => {
             }
       return style;
    }
-
+   
    
     const renderFilterButtons = (filters) => {
+
+        
         
        return filters.map((filter, i) => {
-            const style = btnStyle(filter)
-            return <button onClick={() => dispatch(filterHero(heroes, filter))} key={i} className={`btn ${style}`}>{filter}</button>
+
+         const btnClass = classnames({
+            btn: true,
+            active: isActive == i
+        })
+        
+            let style = btnStyle(filter)
+            return  <button 
+                        onClick={(e) => onFilterHero(heroes, filter, i)}
+                        id={i}
+                        key={i}
+                        className={`${btnClass} ${style}`}>{filter}
+                    </button>
         })
     }
 
@@ -56,21 +74,23 @@ const HeroesFilters = () => {
 
     const elButtons = renderFilterButtons(filters);
 
+  
+    
+
+   
+
     return (
         <div className="card shadow-lg mt-4">
             <div className="card-body">
                 <p className="card-text">Отфильтруйте героев по элементам</p>
                 <div className="btn-group">
-                    {/* <button className="btn btn-outline-dark active">Все</button>
-                    <button className="btn btn-danger">Огонь</button>
-                    <button className="btn btn-primary">Вода</button>
-                    <button className="btn btn-success">Ветер</button>
-                    <button className="btn btn-secondary">Земля</button> */}
                     {elButtons}
                 </div>
             </div>
         </div>
     )
 }
+
+
 
 export default HeroesFilters;

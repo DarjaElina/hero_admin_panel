@@ -4,7 +4,8 @@ const initialState = {
     filters: [],
     newHero: {},
     filters: [],
-    filteredHeroes: []
+    filteredHeroes: [],
+    i: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -50,7 +51,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 filteredHeroes: action.payload
             }
-
+        case 'BTN_PRESSED':
+            return {
+                ...state,
+                isActive: action.payload
+            }
         default: return state
     }
 }
