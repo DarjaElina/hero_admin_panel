@@ -4,10 +4,10 @@ export const heroesFetching = () => {
     }
 }
 
-export const heroesFetched = (filteredHeroes) => {
+export const heroesFetched = (heroes) => {
     return {
         type: 'HEROES_FETCHED',
-        payload: filteredHeroes
+        payload: heroes
     }
 }
 
@@ -17,28 +17,9 @@ export const heroesFetchingError = () => {
     }
 }
 
-export const deleteHero = (heroes, id) => {
+export const filtersFetching = () => {
     return {
-        type: 'HERO_DELETED',
-        payload: heroes.filter(hero => hero.id !== id)
-    }
-}
-
-export const createNewHero = (name, description, element) => {
-    return {
-        type: 'NEW_HERO',
-        payload: {
-            name,
-            description,
-            element,
-        }
-    }
-}
-
-export const addHero = (heroes, newHero) => {
-    return {
-        type: 'HERO_ADDED',
-        payload: [...heroes, newHero]
+        type: 'FILTERS_FETCHING'
     }
 }
 
@@ -49,40 +30,30 @@ export const filtersFetched = (filters) => {
     }
 }
 
-
-export const filterHero = (heroes, filter) => {
+export const filtersFetchingError = () => {
     return {
-        type: "HERO_FILTERED",
-        payload: heroes.filter((hero) => {
-            switch(filter) {
-                case "Огонь":
-                    return hero.element === "Огонь"
-                case "Вода":
-                    return hero.element === "Вода"
-                case "Земля":
-                    return hero.element === "Земля"
-                case "Ветер":
-                    return hero.element === "Ветер"
-                case 'Все':
-                    return heroes;
-                default:
-                    return heroes;
-            }
-        })
+        type: 'FILTERS_FETCHING_ERROR'
     }
 }
 
-export const onPressBtn = (i) => {
+export const activeFilterChanged = (filter) => {
     return {
-        type: 'BTN_PRESSED',
-        payload: i
+        type: 'ACTIVE_FILTER_CHANGED',
+        payload: filter
     }
 }
 
-export const toggleInProp = (inProp) => {
+export const heroCreated = (hero) => {
     return {
-        type: "IN_PROP_TOGGLED",
-        payload: !inProp
+        type: 'HERO_CREATED',
+        payload: hero
+    }
+}
+
+export const heroDeleted = (id) => {
+    return {
+        type: 'HERO_DELETED',
+        payload: id
     }
 }
 
