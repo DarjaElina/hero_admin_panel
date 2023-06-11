@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { filterHero, onPressBtn } from "../../actions";
+import { filterHero, onPressBtn, toggleInProp } from "../../actions";
 import classnames from "classnames";
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
@@ -11,15 +11,16 @@ import classnames from "classnames";
 const HeroesFilters = () => {
 
     const dispatch = useDispatch();
-    const { filters, heroes, isActive } = useSelector(state => state)
+    const { filters, heroes, isActive, inProp } = useSelector(state => state)
 
 
    
 
 
-    const onFilterHero = (heroes, filter, i) => {
+    const onFilterHero = (heroes, filter, i, inProp) => {
         dispatch(filterHero(heroes, filter))
-        dispatch(onPressBtn(i))
+        dispatch(onPressBtn(i, inProp))
+        dispatch(toggleInProp(inProp))
     }
 
 
@@ -47,7 +48,6 @@ const HeroesFilters = () => {
       return style;
    }
    
-   
     const renderFilterButtons = (filters) => {
 
         
@@ -61,7 +61,7 @@ const HeroesFilters = () => {
         
             let style = btnStyle(filter)
             return  <button 
-                        onClick={(e) => onFilterHero(heroes, filter, i)}
+                        onClick={(e) => onFilterHero(heroes, filter, i, inProp)}
                         id={i}
                         key={i}
                         className={`${btnClass} ${style}`}>{filter}

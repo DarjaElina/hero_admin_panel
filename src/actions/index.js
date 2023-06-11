@@ -79,6 +79,12 @@ export const onPressBtn = (i) => {
     }
 }
 
+export const toggleInProp = (inProp) => {
+    return {
+        type: "IN_PROP_TOGGLED",
+        payload: !inProp
+    }
+}
 
 
 

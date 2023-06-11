@@ -5,8 +5,9 @@ const initialState = {
     newHero: {},
     filters: [],
     filteredHeroes: [],
-    i: ''
-}
+    i: '',
+    inProp: false
+} 
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -55,6 +56,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isActive: action.payload
+            }
+        case 'IN_PROP_TOGGLED':
+            return {
+                ...state,
+                inProp: action.payload
             }
         default: return state
     }
